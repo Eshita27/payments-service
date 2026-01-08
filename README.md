@@ -17,6 +17,7 @@ The Payments-Service API is a Spring Boot application designed to handle core pa
 ---
 
 ## 🏗️ Project Structure
+```text
 com.elementsandchill.payments
 ├── controller/       # REST endpoints
 ├── service/          # Business logic
@@ -24,24 +25,31 @@ com.elementsandchill.payments
 ├── repository/       # Persistence layer (if DB needed)
 ├── config/           # Gateway configs, security
 └── utils/            # Parsers, helpers (ISO20022, SWIFT)
+```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Java 17+
-- Maven 3.8+
-- IntelliJ IDEA (recommended)
+- ✅ Java 17+
+- ✅ Maven 3.8+
+- ✅ IntelliJ IDEA (recommended)
 
 ### Running Locally
 ```bash
 mvn spring-boot:run
+```
 
-API Endpoints
-- POST /payments/initiate
-- POST /payments/authorize
-- POST /payments/capture
-- POST /payments/refund
-- GET  /payments/status/{txnId}
-- POST /payments/webhook
+### 📡 API Endpoints
 
+| Method | Endpoint               | Description              |
+|--------|------------------------|--------------------------|
+| POST   | /payments/initiate     | Start a payment          |
+| POST   | /payments/authorize    | Authorize transaction    |
+| POST   | /payments/capture      | Capture funds            |
+| POST   | /payments/refund       | Process refund           |
+| GET    | /payments/status/{id}  | Check payment status     |
+| POST   | /payments/webhook      | Receive gateway updates  |
 
+![Java](https://img.shields.io/badge/Java-17-blue)
+![Spring Boot](https://img.shields.io/badge/SpringBoot-3.1-green)
+![Maven](https://img.shields.io/badge/Maven-3.8-orange)
