@@ -2,6 +2,7 @@ package com.elementsandchill.payments.controller;
 
 import com.elementsandchill.payments.model.*;
 import com.elementsandchill.payments.service.PaymentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class PaymentController {
     }
 
     @PostMapping("/refund")
-    public ResponseEntity<RefundResponse> refund(@RequestBody RefundRequest request) {
+    public ResponseEntity<RefundResponse> refund(@Valid @RequestBody RefundRequest request) {
         RefundResponse response = paymentService.refund(request);
         return ResponseEntity.ok(response);
     }
