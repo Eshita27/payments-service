@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+
 @RestController
 @RequestMapping("/payments")
 public class PaymentController {
@@ -19,31 +21,63 @@ public class PaymentController {
     }
 
     @PostMapping("/authorize")
-    public ResponseEntity<PaymentResponse> authorize(@Valid @RequestBody PaymentRequest request) {
-        PaymentResponse response = paymentService.authorize(request);
+    public ResponseEntity<ApiResponse<PaymentResponse>> authorize(@Valid @RequestBody PaymentRequest request) {
+        PaymentResponse paymentResponse = paymentService.authorize(request);
+
+        ApiResponse<PaymentResponse> response = new ApiResponse<>(
+                "SUCCESS",
+                "Authorization successful",
+                paymentResponse,
+                Instant.now()
+        );
+
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/capture/{id}")
-    public ResponseEntity<PaymentResponse> capture(@PathVariable String id) {
-        PaymentResponse response = paymentService.capture(id);
-        return ResponseEntity.ok(response);
-    }
+    public ResponseEntity<ApiResponse<PaymentResponse>> capture(@PathVariable String id) {
+        PaymentResponse paymentResponse = paymentService.capture(id);
 
-    @PostMapping("/refund")
-    public ResponseEntity<RefundResponse> refund(@Valid @RequestBody RefundRequest request) {
-        RefundResponse response = paymentService.refund(request);
+        ApiResponse<PaymentResponse> response = new ApiResponse<>(
+                "SUCCESS",
+                "Capture successful",
+                paymentResponse,
+                Instant.now()
+        );
+
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/status/{id}")
-    public ResponseEntity<PaymentResponse> getStatus(@PathVariable String id) {
-        PaymentResponse response = paymentService.getStatus(id);
+    public ResponseEntity<ApiResponse<PaymentResponse>> getStatus(@PathVariable String id) {
+        PaymentResponse paymentResponse = paymentService.getStatus(id);
+
+        ApiResponse<PaymentResponse> response = new ApiResponse<>(
+                "SUCCESS",
+                "Status retrieved successfully",
+                paymentResponse,
+                Instant.now()
+        );
+
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/payments")
     public ResponseEntity<String> getPayment(@RequestParam("paymentId") String paymentId) {
         return ResponseEntity.ok("Payment ID: " + paymentId);
+    }
+
+    @PostMapping("/refund")
+    public ResponseEntity<ApiResponse<RefundResponse>> refund(@Valid @RequestBody RefundRequest refundRequest) {
+        RefundResponse refundResponse = paymentService.refund(refundRequest);
+
+        ApiResponse<RefundResponse> response = new ApiResponse<>(
+                "SUCCESS",
+                "Refund processed successfully",
+                refundResponse,
+                Instant.now()
+        );
+
+        return ResponseEntity.ok(response);
     }
 }
