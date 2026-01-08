@@ -1,11 +1,15 @@
 package com.elementsandchill.payments.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 
 public class PaymentResponse {
     private String transactionId;
     private String status; // AUTHORIZED, CAPTURED, REFUNDED
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime timestamp;
+
 
     public PaymentResponse() {}
 

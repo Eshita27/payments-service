@@ -1,10 +1,17 @@
 package com.elementsandchill.payments.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
+
 import java.time.LocalDateTime;
 
 public class RefundResponse {
+    @NotBlank(message = "Refund ID is required")
     private String refundId;
-    private String status; // REFUNDED, FAILED
+
+    @NotBlank(message = "Status is required")
+    private String status;// REFUNDED, FAILED
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime timestamp;
 
     public RefundResponse() {}
