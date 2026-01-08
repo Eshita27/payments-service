@@ -41,4 +41,9 @@ public class PaymentController {
         PaymentResponse response = paymentService.getStatus(id);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/payments")
+    public ResponseEntity<String> getPayment(@RequestParam("paymentId") String paymentId) {
+        return ResponseEntity.ok("Payment ID: " + paymentId);
+    }
 }

@@ -18,14 +18,16 @@ public class PaymentRequest {
     @NotBlank
     private String source;
     // e.g., card number, wallet ID
+    private String paymentId;
 
     public PaymentRequest() {}
 
-    public PaymentRequest(String merchantId, BigDecimal amount, String currency, String source) {
+    public PaymentRequest(String merchantId, BigDecimal amount, String currency, String source,String paymentId) {
         this.merchantId = merchantId;
         this.amount = amount;
         this.currency = currency;
         this.source = source;
+        this.paymentId = paymentId;
     }
 
     public String getMerchantId() { return merchantId; }
@@ -41,4 +43,7 @@ public class PaymentRequest {
 
     public String getSource() { return source; }
     public void setSource(String source) { this.source = source; }
+
+    public String getPaymentId() { return paymentId; }
+    public void setPaymentId(String paymentId) { this.paymentId = paymentId; }
 }
