@@ -18,7 +18,7 @@ public class PaymentController {
     }
 
     @PostMapping("/authorize")
-    public ResponseEntity<PaymentResponse> authorize(@RequestBody PaymentRequest request) {
+    public ResponseEntity<PaymentResponse> authorize(@Valid @RequestBody PaymentRequest request) {
         PaymentResponse response = paymentService.authorize(request);
         return ResponseEntity.ok(response);
     }

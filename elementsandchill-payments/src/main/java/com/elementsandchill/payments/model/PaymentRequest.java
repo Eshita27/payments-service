@@ -1,12 +1,23 @@
 package com.elementsandchill.payments.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 
 public class PaymentRequest {
+    @NotBlank
     private String merchantId;
+
+    @DecimalMin(value = "0.01", message = "Amount must be greater than zero")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal amount;
+
+    @NotBlank
     private String currency;
-    private String source; // e.g., card number, wallet ID
+
+    @NotBlank
+    private String source;
+    // e.g., card number, wallet ID
 
     public PaymentRequest() {}
 
@@ -24,7 +35,9 @@ public class PaymentRequest {
     public void setAmount(BigDecimal amount) { this.amount = amount; }
 
     public String getCurrency() { return currency; }
-    public void setCurrency(String currency) { this.currency = currency; }
+    public void setCurrency(String currency) {
+        this.currency = currency != null ? currency.toUpperCase() : null;
+    }
 
     public String getSource() { return source; }
     public void setSource(String source) { this.source = source; }
